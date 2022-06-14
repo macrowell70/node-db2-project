@@ -16,8 +16,10 @@ router.get('/:id', md.checkCarId, (req, res) => {
     res.json(req.car)
 });
 
-router.post('/', (req, res) => {
-    res.json({ message: "post router is working" })
+router.post('/', md.checkCarPayload, (req, res) => {
+    Cars.create(req.body)
+    .then(car => res.json(car))
+    .catch(err => res.json(err.message))
 });
 
 module.exports = router

@@ -13,7 +13,12 @@ const checkCarId = (req, res, next) => {
 }
 
 const checkCarPayload = (req, res, next) => {
-  // DO YOUR MAGIC
+  const { vin, make, model, mileage } = req.body;
+    if(!vin) { return res.status(400).json({ message: "vin is missing"}) }
+    else if(!make) { return res.status(400).json({ message: "make is missing"})}
+    else if(!model) { return res.status(400).json({ message: "model is missing"})}
+    else if(!mileage) { return res.status(400).json({ message: "mileage is missing"}) }
+    else { next() }
 }
 
 const checkVinNumberValid = (req, res, next) => {
