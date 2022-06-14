@@ -38,8 +38,18 @@ const checkVinNumberValid = (req, res, next) => {
   next()
 }
 
-const checkVinNumberUnique = (req, res, next) => {
-  // DO YOUR MAGIC
+const checkVinNumberUnique = async (req, res, next) => {
+  try {
+    const existing = await Cars.getByVin(req.body.vin)
+    if (existing) {
+      return res.status(400).json({ message: `vin ${req.body.vin} already exists` })
+    }
+    if (!existing) {
+      next()
+    }
+  } catch (err) {
+    next(err.message)
+  }
 }
 
 module.exports = {
