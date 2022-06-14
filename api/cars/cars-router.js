@@ -16,7 +16,7 @@ router.get('/:id', md.checkCarId, (req, res) => {
     res.json(req.car)
 });
 
-router.post('/', md.checkCarPayload, (req, res) => {
+router.post('/', md.checkCarPayload, md.checkVinNumberValid, (req, res) => {
     Cars.create(req.body)
     .then(car => res.json(car))
     .catch(err => res.json(err.message))
